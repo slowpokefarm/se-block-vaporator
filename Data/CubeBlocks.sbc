@@ -49,7 +49,7 @@
       <DamageEffectId>213</DamageEffectId>
       <DamagedSound>ParticleWeapExpl</DamagedSound>
       <GenerateSound>BlockOxyGenProcess</GenerateSound>
-      <IdleSound>BlockOxyGenIdle</IdleSound
+      <IdleSound>BlockOxyGenIdle</IdleSound>
     </Definition>
   </CubeBlocks>
  </Definitions>
