@@ -1,0 +1,55 @@
+﻿<?xml version="1.0"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CubeBlocks>
+    <Definition xsi:type="MyObjectBuilder_ShipDrillDefinition">
+      <Id>
+        <TypeId>Drill</TypeId>
+        <SubtypeId>LargeBlockVaporator</SubtypeId>
+      </Id>
+      <DisplayName>Moisture Vaporator</DisplayName>
+      <public>false</public>
+      <Icon>Textures\Icons\Vaporator_Large.dds</Icon>
+      <CubeSize>Large</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="3" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Vaporator_Large.mwm</Model>
+      <UseModelIntersection>true</UseModelIntersection>
+      <Components>
+        <Component Subtype="SteelPlate" Count="80" />
+        <Component Subtype="Construction" Count="30" />
+        <Component Subtype="SmallTube" Count="4" />
+        <Component Subtype="LargeTube" Count="4" />
+        <Component Subtype="Motor" Count="5" />
+        <Component Subtype="Computer" Count="5" />
+        <Component Subtype="SteelPlate" Count="22" />
+      </Components>
+      <CriticalComponent Subtype="Computer" Index="0" />
+  <MountPoints>
+    <MountPoint Side="Front" StartX="0.20" StartY="0.20" EndX="0.80" EndY="0.80" />
+    <MountPoint Side="Back" StartX="0.20" StartY="0.20" EndX="0.80" EndY="0.80" />
+    <MountPoint Side="Left" StartX="0.20" StartY="0.20" EndX="0.80" EndY="0.80" />
+    <MountPoint Side="Right" StartX="0.20" StartY="0.20" EndX="0.80" EndY="0.80" />
+    <MountPoint Side="Bottom" StartX="0.20" StartY="0.20" EndX="0.80" EndY="0.80" />
+  </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="0.33" File="Models\Vaporator_Large_Constr1.mwm" />
+        <Model BuildPercentUpperBound="0.66" File="Models\Vaporator_Large_Constr2.mwm" />
+        <Model BuildPercentUpperBound="1.00" File="Models\Vaporator_Large_Constr3.mwm" />
+      </BuildProgressModels>
+      <BlockPairName>Moisture Vaporator</BlockPairName>
+      <MirroringY>Z</MirroringY>
+      <MirroringZ>Y</MirroringZ>
+      <EdgeType>Light</EdgeType>
+      <BuildTimeSeconds>30</BuildTimeSeconds>
+      <Center x="0" y="0" z="0" />
+      <SensorRadius>0</SensorRadius>
+      <SensorOffset>0</SensorOffset>
+      <DeformationRatio>0.7</DeformationRatio>
+      <DamageEffectId>213</DamageEffectId>
+      <DamagedSound>ParticleWeapExpl</DamagedSound>
+      <GenerateSound>BlockOxyGenProcess</GenerateSound>
+      <IdleSound>BlockOxyGenIdle</IdleSound
+    </Definition>
+  </CubeBlocks>
+ </Definitions>
