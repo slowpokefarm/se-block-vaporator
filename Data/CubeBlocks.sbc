@@ -1,20 +1,19 @@
 ﻿<?xml version="1.0"?>
 <Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <CubeBlocks>
-    <Definition xsi:type="MyObjectBuilder_ShipDrillDefinition">
+
+    <Definition xsi:type="MyObjectBuilder_OxygenGeneratorDefinition">
       <Id>
-        <TypeId>Drill</TypeId>
+        <TypeId>OxygenGenerator</TypeId>
         <SubtypeId>LargeBlockVaporator</SubtypeId>
       </Id>
       <DisplayName>Moisture Vaporator</DisplayName>
-      <public>false</public>
       <Icon>Textures\Icons\Vaporator_Large.dds</Icon>
       <CubeSize>Large</CubeSize>
       <BlockTopology>TriangleMesh</BlockTopology>
       <Size x="1" y="3" z="1" />
       <ModelOffset x="0" y="0" z="0" />
       <Model>Models\Vaporator_Large.mwm</Model>
-      <UseModelIntersection>true</UseModelIntersection>
       <Components>
         <Component Subtype="SteelPlate" Count="80" />
         <Component Subtype="Construction" Count="30" />
@@ -25,31 +24,69 @@
         <Component Subtype="SteelPlate" Count="22" />
       </Components>
       <CriticalComponent Subtype="Computer" Index="0" />
-  <MountPoints>
-    <MountPoint Side="Front" StartX="0.20" StartY="0.20" EndX="0.80" EndY="0.80" />
-    <MountPoint Side="Back" StartX="0.20" StartY="0.20" EndX="0.80" EndY="0.80" />
-    <MountPoint Side="Left" StartX="0.20" StartY="0.20" EndX="0.80" EndY="0.80" />
-    <MountPoint Side="Right" StartX="0.20" StartY="0.20" EndX="0.80" EndY="0.80" />
-    <MountPoint Side="Bottom" StartX="0.20" StartY="0.20" EndX="0.80" EndY="0.80" />
-  </MountPoints>
+      <MountPoints>
+        <MountPoint Side="Front" StartX="0.20" StartY="0.20" EndX="0.80" EndY="0.80" />
+        <MountPoint Side="Back" StartX="0.20" StartY="0.20" EndX="0.80" EndY="0.80" />
+        <MountPoint Side="Left" StartX="0.20" StartY="0.20" EndX="0.80" EndY="0.80" />
+        <MountPoint Side="Right" StartX="0.20" StartY="0.20" EndX="0.80" EndY="0.80" />
+        <MountPoint Side="Bottom" StartX="0.20" StartY="0.20" EndX="0.80" EndY="0.80" />
+      </MountPoints>
+      <MirroringZ>Y</MirroringZ>
+      <MirroringY>Z</MirroringY>
       <BuildProgressModels>
         <Model BuildPercentUpperBound="0.33" File="Models\Vaporator_Large_Constr1.mwm" />
         <Model BuildPercentUpperBound="0.66" File="Models\Vaporator_Large_Constr2.mwm" />
         <Model BuildPercentUpperBound="1.00" File="Models\Vaporator_Large_Constr3.mwm" />
       </BuildProgressModels>
       <BlockPairName>Moisture Vaporator</BlockPairName>
-      <MirroringY>Z</MirroringY>
-      <MirroringZ>Y</MirroringZ>
       <EdgeType>Light</EdgeType>
       <BuildTimeSeconds>30</BuildTimeSeconds>
-      <Center x="0" y="0" z="0" />
-      <SensorRadius>0</SensorRadius>
-      <SensorOffset>0</SensorOffset>
-      <DeformationRatio>0.7</DeformationRatio>
+      <ResourceSourceGroup>Reactors</ResourceSourceGroup>
+      <ResourceSinkGroup>Factory</ResourceSinkGroup>
+      <IceConsumptionPerSecond>0</IceConsumptionPerSecond>
+      <InventoryMaxVolume>4</InventoryMaxVolume>
+      <InventorySize>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>2</Z>
+      </InventorySize>
+      <StandbyPowerConsumption>0.22</StandbyPowerConsumption>
+      <OperationalPowerConsumption>0.22</OperationalPowerConsumption>
+      <ProducedGases>
+        <GasInfo>
+          <Id>
+            <TypeId>GasProperties</TypeId>
+            <SubtypeId>Oxygen</SubtypeId>
+          </Id>
+          <IceToGasRatio>0</IceToGasRatio>
+        </GasInfo>
+      </ProducedGases>
+      <BlueprintClasses>
+        <Class>Ice</Class>
+      </BlueprintClasses>
       <DamageEffectId>213</DamageEffectId>
       <DamagedSound>ParticleWeapExpl</DamagedSound>
-      <GenerateSound>BlockOxyGenProcess</GenerateSound>
+      <GenerateSound>BlockAirVentExhale</GenerateSound>
       <IdleSound>BlockOxyGenIdle</IdleSound>
+      
+      <!--<Effects>
+        <Effect Name="Damage" ParameterMin="0.5">
+          <ParticleEffects>
+            <ParticleEffect Origin="Damage_02" Name="SmokeWhite" Loop="true" Duration="3" SpawnTimeMin="2" SpawnTimeMax="5" />
+            <ParticleEffect Origin="Damage_04" Name="SmokeWhite" Loop="true" Duration="3" SpawnTimeMin="2" SpawnTimeMax="5" />
+          </ParticleEffects>
+        </Effect>
+        
+        
+        <Effect Name="Damage" ParameterMin="0" ParameterMax="0.5">
+          <ParticleEffects>
+            <ParticleEffect Origin="Damage_01" Name="SmokeBlack" Loop="true" Delay="2" />
+            <ParticleEffect Origin="Damage_02" Name="SmokeWhite" Loop="true" />
+            <ParticleEffect Origin="Damage_03" Name="SmokeBlack" Loop="true" Delay="4" />
+            <ParticleEffect Origin="Damage_04" Name="SmokeWhite" Loop="true" />
+          </ParticleEffects>
+        </Effect>
+      </Effects> -->
     </Definition>
   </CubeBlocks>
  </Definitions>
