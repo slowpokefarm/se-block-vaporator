@@ -8,6 +8,7 @@ using Sandbox.Common;
 using Sandbox.Common.Components;
 using Sandbox.Common.ObjectBuilders;
 using Sandbox.Game;
+using Sandbox.Game.GameSystems.Conveyors;
 using Sandbox.Game.Entities;
 using Sandbox.Game.EntityComponents;
 using Sandbox.Definitions;
@@ -34,9 +35,7 @@ namespace Slowpokefarm.Vaporator
         // Builder is nessassary for GetObjectBuilder method as far as I know.
         private MyObjectBuilder_EntityBase builder;
         private Sandbox.ModAPI.IMyOxygenGenerator m_generator;
-        private MyDefinitionId m_defId;
         private IMyCubeBlock m_parent;
-        private int myupdatecheck;
         private float w_density;
 
         Sandbox.ModAPI.IMyTerminalBlock terminalBlock;

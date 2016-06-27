@@ -39,6 +39,7 @@
         <Model BuildPercentUpperBound="1.00" File="Models\Vaporator_Large_Constr3.mwm" />
       </BuildProgressModels>
       <BlockPairName>Moisture Vaporator</BlockPairName>
+      <Center x="0" y="0" z="1" />
       <EdgeType>Light</EdgeType>
       <BuildTimeSeconds>30</BuildTimeSeconds>
       <ResourceSourceGroup>Reactors</ResourceSourceGroup>
@@ -53,13 +54,6 @@
       <StandbyPowerConsumption>0.22</StandbyPowerConsumption>
       <OperationalPowerConsumption>0.22</OperationalPowerConsumption>
       <ProducedGases>
-        <GasInfo>
-          <Id>
-            <TypeId>GasProperties</TypeId>
-            <SubtypeId>Oxygen</SubtypeId>
-          </Id>
-          <IceToGasRatio>0</IceToGasRatio>
-        </GasInfo>
       </ProducedGases>
       <BlueprintClasses>
         <Class>Ice</Class>
