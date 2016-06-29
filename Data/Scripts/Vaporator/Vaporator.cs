@@ -65,7 +65,7 @@ namespace Slowpokefarm.Vaporator
             {
                 // m_generator.UpgradeValues["Productivity"] = 1 * (w_density >= 0.1f ? w_density : 0.0f);
 
-                VRage.MyFixedPoint amount = (VRage.MyFixedPoint)(0.04 * w_density);
+                VRage.MyFixedPoint amount = (VRage.MyFixedPoint)(0.04 * (w_density * m_generator.UpgradeValues["Effectiveness"]) * (1 + m_generator.UpgradeValues["Productivity"])));
                 inventory.AddItems(amount, new MyObjectBuilder_Ore() { SubtypeName = "Ice" });
             }
             else {
