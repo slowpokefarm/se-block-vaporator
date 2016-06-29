@@ -39,7 +39,7 @@
         <Model BuildPercentUpperBound="1.00" File="Models\Vaporator_Large_Constr3.mwm" />
       </BuildProgressModels>
       <BlockPairName>Moisture Vaporator</BlockPairName>
-      <Center x="0" y="0" z="1" />
+      <Center x="0" y="0" z="0" />
       <EdgeType>Light</EdgeType>
       <BuildTimeSeconds>30</BuildTimeSeconds>
       <ResourceSourceGroup>Reactors</ResourceSourceGroup>
