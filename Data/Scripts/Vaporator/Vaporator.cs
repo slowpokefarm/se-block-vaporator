@@ -29,12 +29,12 @@ using VRageMath;
 
 namespace Slowpokefarm.Vaporator
 {
-    [MyEntityComponentDescriptor(typeof(MyObjectBuilder_OxygenGenerator), "LargeBlockVaporator")]
+    [MyEntityComponentDescriptor(typeof(MyObjectBuilder_Refinery), "LargeBlockVaporator")]
     public class Vaporator : MyGameLogicComponent
     {
         // Builder is nessassary for GetObjectBuilder method as far as I know.
         private MyObjectBuilder_EntityBase builder;
-        private Sandbox.ModAPI.IMyOxygenGenerator m_generator;
+        private Sandbox.Game.Entities.Cube.MyRefinery m_generator;
         private IMyCubeBlock m_parent;
         private float w_density;
 
@@ -43,7 +43,7 @@ namespace Slowpokefarm.Vaporator
 
         public override void Init(MyObjectBuilder_EntityBase objectBuilder)
         {
-            m_generator = Entity as Sandbox.ModAPI.IMyOxygenGenerator;
+            m_generator = Entity as Sandbox.Game.Entities.Cube.MyRefinery;
             m_parent = Entity as IMyCubeBlock;
 
             builder = objectBuilder;
@@ -59,17 +59,17 @@ namespace Slowpokefarm.Vaporator
         {
             w_density = atmoDet.AtmosphereDetectionVaporator (this.Entity);
 
-            IMyInventory inventory = ((Sandbox.ModAPI.IMyTerminalBlock)Entity).GetInventory(0) as IMyInventory;
+            IMyInventory inventory = ((Sandbox.ModAPI.IMyTerminalBlock)Entity).GetInventory(1) as IMyInventory;
             
             if (m_generator.IsWorking)
             {
-                m_generator.PowerConsumptionMultiplier = 1 * (w_density >= 0.1f ? w_density : 0.1f);
+                // m_generator.UpgradeValues["Productivity"] = 1 * (w_density >= 0.1f ? w_density : 0.0f);
 
-                VRage.MyFixedPoint amount = (VRage.MyFixedPoint)(0.04 * w_density);
+                VRage.MyFixedPoint amount = (VRage.MyFixedPoint)(0.04 * (w_density * m_generator.UpgradeValues["Effectiveness"]) * (1 + m_generator.UpgradeValues["Productivity"])));
                 inventory.AddItems(amount, new MyObjectBuilder_Ore() { SubtypeName = "Ice" });
             }
             else {
-                m_generator.PowerConsumptionMultiplier = 1;
+                // m_generator.UpgradeValues["Productivity"] = 0;
             }
 
             terminalBlock.RefreshCustomInfo();
@@ -82,6 +82,7 @@ namespace Slowpokefarm.Vaporator
         {
             info.Clear ();
             info.AppendLine ("Atmosphere density: " + w_density.ToString("N") + " p");
+            // info.AppendLine ("OwnerId: " + ((MyCubeBlock)Entity).OwnerId );
         }
 
 
