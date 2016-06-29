@@ -2,9 +2,9 @@
 <Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <CubeBlocks>
 
-    <Definition xsi:type="MyObjectBuilder_OxygenGeneratorDefinition">
+    <Definition xsi:type="MyObjectBuilder_RefineryDefinition">
       <Id>
-        <TypeId>OxygenGenerator</TypeId>
+        <TypeId>Refinery</TypeId>
         <SubtypeId>LargeBlockVaporator</SubtypeId>
       </Id>
       <DisplayName>Moisture Vaporator</DisplayName>
@@ -45,7 +45,7 @@
       <ResourceSourceGroup>Reactors</ResourceSourceGroup>
       <ResourceSinkGroup>Factory</ResourceSinkGroup>
       <IceConsumptionPerSecond>0</IceConsumptionPerSecond>
-      <InventoryMaxVolume>4</InventoryMaxVolume>
+      <InventoryMaxVolume>1</InventoryMaxVolume>
       <InventorySize>
         <X>1</X>
         <Y>1</Y>
@@ -56,12 +56,12 @@
       <ProducedGases>
       </ProducedGases>
       <BlueprintClasses>
-        <Class>Ice</Class>
+        <!-- <Class>Ice</Class> -->
       </BlueprintClasses>
       <DamageEffectId>213</DamageEffectId>
       <DamagedSound>ParticleWeapExpl</DamagedSound>
-      <GenerateSound>BlockAirVentExhale</GenerateSound>
-      <IdleSound>BlockOxyGenIdle</IdleSound>
+      <ActionSound>BlockAirVentExhale</ActionSound>
+      <PrimarySound>BlockAirVentExhale</PrimarySound>
       
       <!--<Effects>
         <Effect Name="Damage" ParameterMin="0.5">
