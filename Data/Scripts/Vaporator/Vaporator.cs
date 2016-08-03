@@ -34,7 +34,7 @@ namespace Slowpokefarm.Vaporator
     {
         // Builder is nessassary for GetObjectBuilder method as far as I know.
         private MyObjectBuilder_EntityBase builder;
-        private Sandbox.Game.Entities.Cube.MyRefinery m_generator;
+        private Sandbox.ModAPI.IMyRefinery m_generator;
         private IMyCubeBlock m_parent;
         private float w_density;
 
@@ -43,7 +43,7 @@ namespace Slowpokefarm.Vaporator
 
         public override void Init(MyObjectBuilder_EntityBase objectBuilder)
         {
-            m_generator = Entity as Sandbox.Game.Entities.Cube.MyRefinery;
+            m_generator = Entity as Sandbox.ModAPI.IMyRefinery;
             m_parent = Entity as IMyCubeBlock;
 
             builder = objectBuilder;
