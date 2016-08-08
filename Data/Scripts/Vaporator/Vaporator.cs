@@ -39,7 +39,7 @@ namespace Slowpokefarm.Vaporator
         private float w_density;
 
         Sandbox.ModAPI.IMyTerminalBlock terminalBlock;
-        AtmosphereDetector atmoDet = new AtmosphereDetector();
+        Vape_AtmosphereDetector atmoDet = new Vape_AtmosphereDetector();
 
         public override void Init(MyObjectBuilder_EntityBase objectBuilder)
         {
