@@ -17,17 +17,17 @@ using Sandbox.Game.Entities;
 
 namespace Slowpokefarm.Vaporator
 {
-	public class AtmosphereDetector
+	public class Vape_AtmosphereDetector
 	{
 		public float AtmosphereDetectionVaporator( IMyEntity ent)
 		{
-			foreach (var pl in WorldPlanets.planets)
+			foreach (var pl in Vape_WorldPlanets.planets)
 			{
 				var planet = pl.Value;
 
 				if (planet.Closed || planet.MarkedForClose)
 				{
-					WorldPlanets.removePlanets.Add(pl.Key);
+					Vape_WorldPlanets.removePlanets.Add(pl.Key);
 					continue;
 				}
 				if (planet.HasAtmosphere && Vector3D.DistanceSquared(ent.GetPosition(), planet.WorldMatrix.Translation) < (planet.AtmosphereRadius * planet.AtmosphereRadius))
@@ -35,12 +35,12 @@ namespace Slowpokefarm.Vaporator
 					return planet.GetAirDensity(ent.GetPosition());
 				}
 			}
-			if (WorldPlanets.removePlanets.Count > 0)
+			if (Vape_WorldPlanets.removePlanets.Count > 0)
 			{
-				foreach (var id in WorldPlanets.removePlanets)
-					WorldPlanets.planets.Remove(id);
+				foreach (var id in Vape_WorldPlanets.removePlanets)
+					Vape_WorldPlanets.planets.Remove(id);
 
-				WorldPlanets.removePlanets.Clear();
+				Vape_WorldPlanets.removePlanets.Clear();
 			}
 			return 0;
 		}

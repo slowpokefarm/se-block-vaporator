@@ -18,7 +18,7 @@ using Sandbox.Game.Entities;
 namespace Slowpokefarm.Vaporator
 {
 	[MySessionComponentDescriptor(MyUpdateOrder.AfterSimulation)]
-	public class WorldPlanets : MySessionComponentBase
+	public class Vape_WorldPlanets : MySessionComponentBase
 	{
 			public static Dictionary<long, MyPlanet> planets = new Dictionary<long, MyPlanet>();
 			public static List<long> removePlanets = new List<long>();
@@ -36,8 +36,8 @@ namespace Slowpokefarm.Vaporator
 					{
 						if(e is MyPlanet)
 						{
-							if (!WorldPlanets.planets.ContainsKey(e.EntityId))
-								WorldPlanets.planets.Add(e.EntityId, e as MyPlanet);
+							if (!Vape_WorldPlanets.planets.ContainsKey(e.EntityId))
+								Vape_WorldPlanets.planets.Add(e.EntityId, e as MyPlanet);
 						}
 
 							return false; // no reason to add to the list
