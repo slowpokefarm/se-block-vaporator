@@ -29,12 +29,14 @@ using VRageMath;
 
 namespace Slowpokefarm.Vaporator
 {
-    [MyEntityComponentDescriptor(typeof(MyObjectBuilder_Refinery), "LargeBlockVaporator")]
+    [MyEntityComponentDescriptor(typeof(MyObjectBuilder_Drill), true, "LargeBlockVaporator")]
     public class Vaporator : MyGameLogicComponent
     {
         // Builder is nessassary for GetObjectBuilder method as far as I know.
         private MyObjectBuilder_EntityBase builder;
         private Sandbox.ModAPI.IMyRefinery m_generator;
+        private Sandbox.ModAPI.IMyProductionBlock m_production;
+		private Sandbox.ModAPI.IMyShipDrill m_drill;
         private IMyCubeBlock m_parent;
         private float w_density;
 
@@ -43,9 +45,15 @@ namespace Slowpokefarm.Vaporator
 
         public override void Init(MyObjectBuilder_EntityBase objectBuilder)
         {
-            m_generator = Entity as Sandbox.ModAPI.IMyRefinery;
+            //m_generator = Entity as Sandbox.ModAPI.IMyRefinery;
+			m_drill = Entity as Sandbox.ModAPI.IMyShipDrill;
+            //m_production = Entity as Sandbox.ModAPI.IMyProductionBlock;
             m_parent = Entity as IMyCubeBlock;
 
+            m_drill.UpgradeValues.Add("Productivity", 0f);
+            m_drill.UpgradeValues.Add("Effectiveness", 1f);
+            m_drill.UpgradeValues.Add("PowerEfficiency", 1f);
+			
             builder = objectBuilder;
 
             // MUST set the object to update atleast ONCE because you can not modify the inventory inside Init method!!!
@@ -58,19 +66,18 @@ namespace Slowpokefarm.Vaporator
         public override void UpdateBeforeSimulation100()
         {
             w_density = atmoDet.AtmosphereDetectionVaporator (this.Entity);
-
-            IMyInventory inventory = ((Sandbox.ModAPI.IMyTerminalBlock)Entity).GetInventory(1) as IMyInventory;
-            
-            if (m_generator.IsWorking)
-            {
-                // m_generator.UpgradeValues["Productivity"] = 1 * (w_density >= 0.1f ? w_density : 0.0f);
-
-                VRage.MyFixedPoint amount = (VRage.MyFixedPoint)(0.04 * (w_density * m_generator.UpgradeValues["Effectiveness"]) * (1 + m_generator.UpgradeValues["Productivity"]));
+            IMyInventory inventory = ((Sandbox.ModAPI.IMyTerminalBlock)Entity).GetInventory(0) as IMyInventory;
+			
+			//check to see if the block is on
+			if (m_drill.Enabled)
+			{
+				m_drill.PowerConsumptionMultiplier =  11 * (1f + m_drill.UpgradeValues["Productivity"]) * (1f / m_drill.UpgradeValues["PowerEfficiency"]);
+			
+				VRage.MyFixedPoint amount = (VRage.MyFixedPoint)(0.04 * (w_density * m_drill.UpgradeValues["Effectiveness"]) * (1 + m_drill.UpgradeValues["Productivity"]));
                 inventory.AddItems(amount, new MyObjectBuilder_Ore() { SubtypeName = "Ice" });
-            }
-            else {
-                // m_generator.UpgradeValues["Productivity"] = 0;
-            }
+			}
+
+				
 
             terminalBlock.RefreshCustomInfo();
 
@@ -81,6 +88,18 @@ namespace Slowpokefarm.Vaporator
         public void appendCustomInfo(Sandbox.ModAPI.IMyTerminalBlock block, StringBuilder info)
         {
             info.Clear ();
+			
+            info.AppendFormat("\n\n");
+            info.Append("Productivity: ");
+            info.Append(((m_drill.UpgradeValues["Productivity"] + 1f) * 100f).ToString("F0"));
+            info.Append("%\n");
+            info.Append("Effectiveness: ");
+            info.Append(((m_drill.UpgradeValues["Effectiveness"]) * 100f).ToString("F0"));
+            info.Append("%\n");
+            info.Append("Power Efficiency: ");
+            info.Append(((m_drill.UpgradeValues["PowerEfficiency"]) * 100f).ToString("F0"));
+            info.Append("%\n");
+			
             info.AppendLine ("Atmosphere density: " + w_density.ToString("N") + " p");
             // info.AppendLine ("OwnerId: " + ((MyCubeBlock)Entity).OwnerId );
         }

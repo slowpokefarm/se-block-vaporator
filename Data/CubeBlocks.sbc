@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0"?>
 <Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <CubeBlocks>
-
-    <Definition xsi:type="MyObjectBuilder_RefineryDefinition">
+    <Definition xsi:type="MyObjectBuilder_ShipDrillDefinition">
       <Id>
-        <TypeId>Refinery</TypeId>
+        <TypeId>Drill</TypeId>
         <SubtypeId>LargeBlockVaporator</SubtypeId>
       </Id>
       <DisplayName>Moisture Vaporator</DisplayName>
@@ -44,19 +43,13 @@
       <BuildTimeSeconds>30</BuildTimeSeconds>
       <ResourceSourceGroup>Reactors</ResourceSourceGroup>
       <ResourceSinkGroup>Factory</ResourceSinkGroup>
-      <!-- <IceConsumptionPerSecond>0</IceConsumptionPerSecond> -->
       <InventoryMaxVolume>1</InventoryMaxVolume>
       <InventorySize>
         <X>1</X>
         <Y>1</Y>
         <Z>2</Z>
       </InventorySize>
-      <StandbyPowerConsumption>0.22</StandbyPowerConsumption>
-      <OperationalPowerConsumption>0.22</OperationalPowerConsumption>
-      <ProducedGases>
-      </ProducedGases>
       <BlueprintClasses>
-        <!-- <Class>Ice</Class> -->
       </BlueprintClasses>
       <DamageEffectId>213</DamageEffectId>
       <DamagedSound>ParticleWeapExpl</DamagedSound>
