@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0"?>
 <Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <CubeBlocks>
-    <Definition xsi:type="MyObjectBuilder_ShipDrillDefinition">
+    <Definition xsi:type="MyObjectBuilder_OxygenGeneratorDefinition">
       <Id>
-        <TypeId>Drill</TypeId>
+        <TypeId>OxygenGenerator</TypeId>
         <SubtypeId>LargeBlockVaporator</SubtypeId>
       </Id>
       <DisplayName>Moisture Vaporator</DisplayName>
@@ -49,6 +49,8 @@
         <Y>1</Y>
         <Z>2</Z>
       </InventorySize>
+      <StandbyPowerConsumption>0.0001</StandbyPowerConsumption>
+      <OperationalPowerConsumption>0.10</OperationalPowerConsumption>
       <BlueprintClasses>
       </BlueprintClasses>
       <DamageEffectId>213</DamageEffectId>
