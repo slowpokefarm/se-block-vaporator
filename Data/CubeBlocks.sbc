@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0"?>
 <Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <CubeBlocks>
-    <Definition xsi:type="MyObjectBuilder_OxygenGeneratorDefinition">
+    <Definition xsi:type="MyObjectBuilder_RefineryDefinition">
       <Id>
-        <TypeId>OxygenGenerator</TypeId>
+        <TypeId>Refinery</TypeId>
         <SubtypeId>LargeBlockVaporator</SubtypeId>
       </Id>
       <DisplayName>Moisture Vaporator</DisplayName>
+	  <Description>The moisture vaporator pulls water from the surrounding air to provide ice. It requires a planetary atmosphere and a fair amount of power to function.</Description>
       <Icon>Textures\Icons\Vaporator_Large.dds</Icon>
       <CubeSize>Large</CubeSize>
       <BlockTopology>TriangleMesh</BlockTopology>
@@ -41,16 +42,19 @@
       <Center x="0" y="0" z="0" />
       <EdgeType>Light</EdgeType>
       <BuildTimeSeconds>30</BuildTimeSeconds>
-      <ResourceSourceGroup>Reactors</ResourceSourceGroup>
-      <ResourceSinkGroup>Factory</ResourceSinkGroup>
+      <ResourceSinkGroup>Utility</ResourceSinkGroup>
       <InventoryMaxVolume>1</InventoryMaxVolume>
       <InventorySize>
         <X>1</X>
         <Y>1</Y>
         <Z>2</Z>
       </InventorySize>
-      <StandbyPowerConsumption>0.0001</StandbyPowerConsumption>
-      <OperationalPowerConsumption>0.10</OperationalPowerConsumption>
+	  <PCU>50</PCU>
+      <StandbyPowerConsumption>0.001</StandbyPowerConsumption>
+      <OperationalPowerConsumption>0.40</OperationalPowerConsumption>
+      <RefineSpeed>0.9</RefineSpeed>
+      <MaterialEfficiency>0.9</MaterialEfficiency>
+      <OreAmountPerPullRequest>0</OreAmountPerPullRequest>
       <BlueprintClasses>
       </BlueprintClasses>
       <DamageEffectId>213</DamageEffectId>
