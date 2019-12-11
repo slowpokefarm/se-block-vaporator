@@ -10,6 +10,7 @@
       <Name>LargeBlocks</Name>
       <ItemIds>
         <string>Refinery/LargeBlockVaporator</string>
+		<string>Refinery/LargeBlockVaporator2</string>
       </ItemIds>
     </Category>
 
@@ -22,6 +23,7 @@
       <Name>Production</Name>
       <ItemIds>
         <string>Refinery/LargeBlockVaporator</string>
+		<string>Refinery/LargeBlockVaporator2</string>
       </ItemIds>
     </Category>
   </CategoryClasses>
