@@ -1,111 +1,150 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Sandbox.Common.ObjectBuilders;
+using Sandbox.Game;
+using Sandbox.Game.Entities;
 using Sandbox.Game.EntityComponents;
 using Sandbox.ModAPI;
 using VRage.Game;
 using VRage.Game.Components;
+using VRage.Game.Entity;
 using VRage.Game.ModAPI;
 using VRage.ModAPI;
 using VRage.ObjectBuilders;
 using VRage.Utils;
+using VRageMath;
+using System.Diagnostics;
 
-namespace Slowpokefarm.Vaporator
-{
-    [MyEntityComponentDescriptor(typeof(MyObjectBuilder_Refinery), true, "LargeBlockVaporator")]
-    public class Vaporator : MyGameLogicComponent
-    {
-        // Builder is nessassary for GetObjectBuilder method as far as I know.
-        private MyObjectBuilder_EntityBase builder;
-		private Sandbox.ModAPI.IMyRefinery m_vaporator;
-		private IMyCubeBlock m_parent;
-        private float w_density;
-		private float poweruse;
+namespace Slowpokefarm.Vaporator {
+	[MyEntityComponentDescriptor(typeof(MyObjectBuilder_Refinery), true, "LargeBlockVaporator")]
+	public class Vaporator : MyGameLogicComponent {
 
-        Sandbox.ModAPI.IMyTerminalBlock terminalBlock;
-        Vape_AtmosphereDetector atmoDet = new Vape_AtmosphereDetector();
-
-        public override void Init(MyObjectBuilder_EntityBase objectBuilder)
-        {
-			m_vaporator = Entity as Sandbox.ModAPI.IMyRefinery;
-            m_parent = Entity as IMyCubeBlock;
-
-            //m_vaporator.UpgradeValues.Add("Productivity", 0f);
-            //m_vaporator.UpgradeValues.Add("Effectiveness", 1f);
-            //m_vaporator.UpgradeValues.Add("PowerEfficiency", 1f);
-			
-            builder = objectBuilder;
-
-            // MUST set the object to update atleast ONCE because you can not modify the inventory inside Init method!!!
-            Entity.NeedsUpdate = MyEntityUpdateEnum.EACH_100TH_FRAME;
-			
-            terminalBlock = Entity as Sandbox.ModAPI.IMyTerminalBlock;
-            terminalBlock.AppendingCustomInfo += appendCustomInfo;
-        }
-		
-        public override void UpdateBeforeSimulation100()
-        {
-            w_density = atmoDet.AtmosphereDetectionVaporator (this.Entity);
-            IMyInventory inventory = ((Sandbox.ModAPI.IMyTerminalBlock)Entity).GetInventory(1) as IMyInventory;
-			
-			//check to see if the block is on
-			if (m_vaporator.Enabled && m_vaporator.IsWorking && m_vaporator.IsFunctional)
-			{    
-
-				try
-				{
-					var sink = Entity.Components.Get<MyResourceSinkComponent>();
-
-					poweruse = 0.4f * (1f + m_vaporator.UpgradeValues["Productivity"]) * (1f / m_vaporator.UpgradeValues["PowerEfficiency"]);
-					
-					if(sink != null)
-					{
-						sink.SetRequiredInputByType(MyResourceDistributorComponent.ElectricityId, poweruse);
-					}
+		private static Config configuration;
+		private static Config Configuration {
+			get {
+				if (configuration == null) {
+					configuration = ConfigAccess.ReadFileFromWorldStorage<Config>("MoistureVaporator.cfg", typeof(Config)) ?? new Config();
+					ConfigAccess.WriteFileToWorldStorage<Config>("MoistureVaporator.cfg", typeof(Config), configuration);
 				}
-				catch(Exception e)
-				{
-					MyAPIGateway.Utilities.ShowNotification("[ Error in " + GetType().FullName + ": " + e.Message + " ]", 10000, MyFontEnum.Red);
-					MyLog.Default.WriteLine(e);
-				}		
-				//m_vaporator.PowerConsumptionMultiplier =  10 * (1f + m_vaporator.UpgradeValues["Productivity"]) * (1f / m_vaporator.UpgradeValues["PowerEfficiency"]);
-			
-				VRage.MyFixedPoint amount = (VRage.MyFixedPoint)(0.2 * (w_density * m_vaporator.UpgradeValues["Effectiveness"]) * (1 + m_vaporator.UpgradeValues["Productivity"]));
-                inventory.AddItems(amount, new MyObjectBuilder_Ore() { SubtypeName = "Ice" });
-			
+				return configuration;
 			}
-				
-            terminalBlock.RefreshCustomInfo();
-            base.UpdateBeforeSimulation100();
-        }
+		}
 
-        //Info handler
-        public void appendCustomInfo(Sandbox.ModAPI.IMyTerminalBlock block, StringBuilder info)
-        {
-            info.Clear ();
-            //info.Append("Current Required Input: ");
-            //info.Append((m_vaporator.Enabled && m_vaporator.IsWorking && m_vaporator.IsFunctional) ? (100f * (1f + m_vaporator.UpgradeValues["Productivity"]) * (1f / m_vaporator.UpgradeValues["PowerEfficiency"])).ToString("N") : 0f.ToString("N"));
-            //info.Append(" kW \n");
-            info.AppendFormat("\n");
-            //info.AppendFormat("\n");
-            //info.Append("Productivity: ");
-            //info.Append(((m_vaporator.UpgradeValues["Productivity"] + 1f) * 100f).ToString("F0"));
-            //info.Append("%\n");
-            //info.Append("Effectiveness: ");
-            //info.Append(((m_vaporator.UpgradeValues["Effectiveness"]) * 100f).ToString("F0"));
-            //info.Append("%\n");
-            //info.Append("Power Efficiency: ");
-            //info.Append(((m_vaporator.UpgradeValues["PowerEfficiency"]) * 100f).ToString("F0"));
-            //info.Append("%\n");
-			
-            info.AppendLine ("Atmosphere density: " + w_density.ToString("N") + " p");
-            // info.AppendLine ("OwnerId: " + ((MyCubeBlock)Entity).OwnerId );
-        }
+		private IMyInventory inventory;
+		public IMyInventory Inventory {
+			get {
+				if (inventory == null) {
+					inventory = (Entity as IMyTerminalBlock).GetInventory(1) as IMyInventory;
+				}
+				return inventory;
+			}
+		}
 
+		private MyResourceSinkComponent sink;
+		public MyResourceSinkComponent Sink {
+			get {
+				if (sink == null) {
+					sink = Entity.Components.Get<MyResourceSinkComponent>();
+				}
+				return sink;
+			}
+		}
 
-        public override MyObjectBuilder_EntityBase GetObjectBuilder(bool copy = false)
-        {
-            return builder;
-        }
-    }
+		private MyObjectBuilder_EntityBase builder;
+		private IMyRefinery vaporatorInstance;
+		private bool checkedAirDensity = false;
+		private float airDensity = 0f;
+		private bool isStationary = false;
+
+		IMyTerminalBlock terminalBlock;
+
+		public override void Init(MyObjectBuilder_EntityBase objectBuilder) {
+			vaporatorInstance = Entity as IMyRefinery;
+
+			builder = objectBuilder;
+
+			terminalBlock = Entity as IMyTerminalBlock;
+			terminalBlock.AppendingCustomInfo += appendCustomInfo;
+
+			isStationary = vaporatorInstance.CubeGrid.IsStatic;
+
+			Entity.NeedsUpdate = MyEntityUpdateEnum.EACH_100TH_FRAME;
+		}
+
+		public override void UpdateBeforeSimulation100() {
+			try {
+				if (vaporatorInstance.Enabled) {
+					if (inValidSituation()) {
+						float poweruse = getPowerUsage();
+						Sink.SetRequiredInputByType(MyResourceDistributorComponent.ElectricityId, poweruse);
+						Inventory.AddItems(getProducedIceAmount(), new MyObjectBuilder_Ore() { SubtypeName = "Ice" });
+					}
+
+					terminalBlock.RefreshCustomInfo();
+					base.UpdateBeforeSimulation100();
+				}
+			} catch (Exception e) {
+				MyAPIGateway.Utilities.ShowNotification("[ Error in " + GetType().FullName + ": " + e.Message + " ]", 10000, MyFontEnum.Red);
+				MyLog.Default.WriteLine(e);
+			}
+		}
+
+		private bool inValidSituation() {
+			this.isStationary = vaporatorInstance.CubeGrid.IsStatic;
+			if (isStationary) {
+				if (!checkedAirDensity) {
+					checkedAirDensity = true;
+					this.airDensity = getAirDensityAtMyLocation();
+				}
+				if (this.airDensity >= Configuration.AirDensityMin) {
+					return true;
+				}
+			} else {
+				this.checkedAirDensity = false;
+				this.airDensity = 0.0f;
+			}
+
+			this.vaporatorInstance.Enabled = false;
+			return false;
+		}
+
+		public void appendCustomInfo(IMyTerminalBlock block, StringBuilder info) {
+			info.Clear();
+			info.AppendFormat("\n");
+			if (this.isStationary) {
+				if (this.airDensity >= Configuration.AirDensityMin) {
+					info.AppendLine("Atmosphere density: " + this.airDensity.ToString("N") + " p");
+				} else {
+					info.AppendLine("Insufficient atmosphere density");
+				}
+			} else {
+				info.AppendLine("Block is not on a stationary grid!");
+			}
+		}
+
+		public override MyObjectBuilder_EntityBase GetObjectBuilder(bool copy = false) {
+			return builder;
+		}
+		private VRage.MyFixedPoint getProducedIceAmount() {
+			return (VRage.MyFixedPoint)(Configuration.IceAmountBase * (this.airDensity * vaporatorInstance.UpgradeValues["Effectiveness"]) * (1 + vaporatorInstance.UpgradeValues["Productivity"]));
+		}
+
+		private float getPowerUsage() {
+			return Configuration.PowerUsageBase * (1f + vaporatorInstance.UpgradeValues["Productivity"]) * (1f / vaporatorInstance.UpgradeValues["PowerEfficiency"]);
+		}
+
+		private bool isWithinAthmosphereOf(MyPlanet planet) {
+			return Vector3D.DistanceSquared(vaporatorInstance.GetPosition(), planet.WorldMatrix.Translation) < (planet.AtmosphereRadius * planet.AtmosphereRadius);
+		}
+
+		private float getAirDensityAtMyLocation() {
+			foreach (MyPlanet planet in Util.getAllBreathablePlanets()) {
+				if (isWithinAthmosphereOf(planet)) {
+					return planet.GetAirDensity(this.vaporatorInstance.GetPosition());
+				}
+			}
+			return 0.0f;
+		}
+	}
 }
