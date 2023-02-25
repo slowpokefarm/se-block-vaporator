@@ -1,0 +1,181 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Moisture_Vaporator_Fixed</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="DirectShowLib">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\DirectShowLib.dll</HintPath>
+    </Reference>
+    <Reference Include="EmptyKeys.UserInterface">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\EmptyKeys.UserInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="EmptyKeys.UserInterface.Core">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\EmptyKeys.UserInterface.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EOSSDK">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\EOSSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="GameAnalytics.Mono">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\GameAnalytics.Mono.dll</HintPath>
+    </Reference>
+    <Reference Include="HavokWrapper">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\HavokWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\Microsoft.CodeAnalysis.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="ProtoBuf.Net">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\ProtoBuf.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="ProtoBuf.Net.Core">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\ProtoBuf.Net.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="RecastDetourWrapper">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\RecastDetourWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Sandbox.Common">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\Sandbox.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Sandbox.Game">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\Sandbox.Game.dll</HintPath>
+    </Reference>
+    <Reference Include="Sandbox.Game.XmlSerializers">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\Sandbox.Game.XmlSerializers.dll</HintPath>
+    </Reference>
+    <Reference Include="Sandbox.Graphics">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\Sandbox.Graphics.dll</HintPath>
+    </Reference>
+    <Reference Include="Sandbox.RenderDirect">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\Sandbox.RenderDirect.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.D3DCompiler">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\SharpDX.D3DCompiler.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Desktop">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\SharpDX.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D11">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\SharpDX.Direct3D11.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DirectInput">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\SharpDX.DirectInput.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DXGI">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\SharpDX.DXGI.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.XAudio2">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\SharpDX.XAudio2.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.XInput">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\SharpDX.XInput.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.Core">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\SixLabors.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.ImageSharp">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\SixLabors.ImageSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SpaceEngineers">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\SpaceEngineers.exe</HintPath>
+    </Reference>
+    <Reference Include="SpaceEngineers.Game">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\SpaceEngineers.Game.dll</HintPath>
+    </Reference>
+    <Reference Include="SpaceEngineers.ObjectBuilders">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\SpaceEngineers.ObjectBuilders.dll</HintPath>
+    </Reference>
+    <Reference Include="SpaceEngineers.ObjectBuilders.XmlSerializers">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\SpaceEngineers.ObjectBuilders.XmlSerializers.dll</HintPath>
+    </Reference>
+    <Reference Include="Steamworks.NET">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\Steamworks.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.Ansel">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.Ansel.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.Audio">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.Audio.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.EOS">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.EOS.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.EOS.XmlSerializers">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.EOS.XmlSerializers.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.Game">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.Game.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.Game.XmlSerializers">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.Game.XmlSerializers.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.Input">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.Input.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.Library">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.Library.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.Math">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.Math.XmlSerializers">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.Math.XmlSerializers.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.Mod.Io">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.Mod.Io.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.NativeAftermath">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.NativeAftermath.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.NativeWrapper">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.NativeWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.Network">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.Network.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.Platform.Windows">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.Platform.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.Render">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.Render.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.Render11">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.Render11.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.Scripting">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.Scripting.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.Steam">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.Steam.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.UserInterface">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.UserInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.XmlSerializers">
+      <HintPath>..\..\..\..\Games\Steam\steamapps\common\SpaceEngineers\Bin64\VRage.XmlSerializers.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
